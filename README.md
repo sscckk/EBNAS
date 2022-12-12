@@ -45,7 +45,7 @@ python train_search.py \\
 
 The evaluation process contains two stages of full-precision activation/binary weight and binary activation/binary weight.
 
-Use --binary to select which stage to run.
+Use --binary to select the stage to run and adjust the convolution type in operation_eval.py.
 
 ##### Here is the evaluation on CIFAR10/100:
 

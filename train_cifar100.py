@@ -100,12 +100,6 @@ def main():
         lr=args.learning_rate,
         betas=(0.9, 0.999))
 
-    # optimizer = torch.optim.Adam(
-    #     model.parameters(),
-    #     lr=args.learning_rate,
-    #     betas=(0.9, 0.999),
-    #     weight_decay=args.weight_decay)
-
     train_transform, valid_transform = utils._data_transforms_cifar100(args)
     train_data = dset.CIFAR100(root=args.data, train=True, download=True, transform=train_transform)
     valid_data = dset.CIFAR100(root=args.data, train=False, download=True, transform=valid_transform)

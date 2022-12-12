@@ -18,7 +18,7 @@ from architect import Architect
 
 
 parser = argparse.ArgumentParser("cifar")
-parser.add_argument('--data', type=str, default='/media/omnisky/DataSet/CIFAR10', help='location of the data corpus')
+parser.add_argument('--data', type=str, default='/data1/DataSet/CIFAR10', help='location of the data corpus')
 parser.add_argument('--batch_size', type=int, default=256, help='batch size')
 parser.add_argument('--learning_rate', type=float, default=1e-3, help='init learning rate')
 parser.add_argument('--learning_rate_min', type=float, default=0.0, help='min learning rate')
@@ -110,12 +110,6 @@ def main():
         logging.info(torch.sigmoid(model.betas_reduce[0:3]+0.6931))
         logging.info(torch.sigmoid(model.betas_reduce[3:7]))
         logging.info(torch.sigmoid(model.betas_reduce[7:12]-0.4055))
-        # logging.info(F.softmax(model.betas_normal[0:3]))
-        # logging.info(F.softmax(model.betas_normal[3:7]))
-        # logging.info(F.softmax(model.betas_normal[7:12]))
-        # logging.info(F.softmax(model.betas_reduce[0:3]))
-        # logging.info(F.softmax(model.betas_reduce[3:7]))
-        # logging.info(F.softmax(model.betas_reduce[7:12]))
 
         # training
         epoch_start = time.time()
@@ -154,8 +148,6 @@ def train(train_queue, valid_queue, model, architect, criterion, optimizer, lr, 
             input_search = input_search.cuda()
             target_search = target_search.cuda()
 
-            # if epoch == 15:
-            #     architect.set()
             architect.step(input_search, target_search, epoch)
 
         optimizer.zero_grad()

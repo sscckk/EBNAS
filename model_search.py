@@ -260,5 +260,3 @@ class Network(nn.Module):
                 reduce=gene_reduce, reduce_concat=concat
             )
         return genotype
-    
-    

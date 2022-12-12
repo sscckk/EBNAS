@@ -68,8 +68,8 @@ class BinReLUConvBN(nn.Module):
         super(BinReLUConvBN, self).__init__()
         self.stride = stride
         self.bn1 = nn.BatchNorm2d(C_in, affine=affine)
-        # self.conv = nn.Conv2d(C_in, C_out, kernel_size, stride=stride, padding=padding, groups=25, bias=False)
-        self.conv = myConv2d(C_in, C_out, kernel_size, stride=stride, padding=padding, groups=16, bias=False)
+        # self.conv = nn.Conv2d(C_in, C_out, kernel_size, stride=stride, padding=padding, groups=14, bias=False)
+        self.conv = myConv2d(C_in, C_out, kernel_size, stride=stride, padding=padding, groups=14, bias=False)
         self.bn2 = nn.BatchNorm2d(C_out, affine=affine)
 
         if self.stride == 2:
@@ -116,8 +116,8 @@ class BinDilConv(nn.Module):
         super(BinDilConv, self).__init__()
         self.stride = stride
         self.bn1 = nn.BatchNorm2d(C_in, affine=affine)
-        # self.conv = nn.Conv2d(C_in, C_out, kernel_size, stride=stride, padding=padding, dilation=dilation, groups=25, bias=False)
-        self.conv = myConv2d(C_in, C_out, kernel_size, stride=stride, padding=padding, dilation=dilation, groups=16, bias=False)
+        # self.conv = nn.Conv2d(C_in, C_out, kernel_size, stride=stride, padding=padding, dilation=dilation, groups=14, bias=False)
+        self.conv = myConv2d(C_in, C_out, kernel_size, stride=stride, padding=padding, dilation=dilation, groups=14, bias=False)
         self.bn2 = nn.BatchNorm2d(C_out, affine=affine)
 
         if self.stride == 2:

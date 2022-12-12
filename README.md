@@ -21,38 +21,37 @@ BATS  | 10.0 | 24.3 | 0.25
 EBNAS    | 10.0 | **21.90** |0.04
 
 ### Results on ImageNet
-Method | OPs(x1e8) |Top-1 Error(%)|Top-5 Error(%)| Search-Cost
+Method | OPs(1e8) |Top-1 Error(%)|Top-5 Error(%)| Search-Cost
 --- | --- | --- | --- | ---
-ResNet18 | 11.2 | 7.0 | -
-BNAS-C  | 42.4 | 5.57 | 0.4
-CP-NAS | 10.6 | 4.73 | 0.1
-BATS  | 10.0 | 4.5 | 0.25
-EBNAS    | 10.0 | **4.39** |0.04
+ResNet18 | 18.2 | 30.4 | 10.8 | -
+BNAS-H  | 4.71 | 36.49 | 16.09 | 0.4
+CP-NAS** | 2.58 | 33.5 | 13.2 | 0.1
+BATS(2x) | 1.55 | 33.9 | 13.0 | 0.25
+EBNAS    | 1.72 | **32.2** | **12.6** | 0.04
+
+## Environment
+Python3 with Pytorch(1.10.1)
+GPU: NVIDIA RTX 3090
 
 ## Usage
 #### Search on CIFAR10
 
-To run our code, you only need one Nvidia 1080ti(11G memory).
 ```
 python train_search.py \\
 ```
-#### Search on ImageNet
 
-Data preparation: 10% and 2.5% images need to be random sampled prior from earch class of trainingset as train and val, respectively. The sampled data is save into `./imagenet_search`.
-Note that not to use torch.utils.data.sampler.SubsetRandomSampler for data sampling as imagenet is too large.
-```
-python train_search_imagenet.py \\
-       --tmp_data_dir /path/to/your/sampled/data \\
-       --save log_path \\
-```
-#### The evaluation process simply follows that of DARTS.
+#### Evaluation
 
-##### Here is the evaluation on CIFAR10:
+The evaluation process contains two stages of full-precision activation/binary weight and binary activation/binary weight.
+Use --binary to select which stage to run.
+
+##### Here is the evaluation on CIFAR10/100:
 
 ```
 python train.py \\
        --auxiliary \\
        --cutout \\
+       --binary \\
 ```
 
 ##### Here is the evaluation on ImageNet (mobile setting):
@@ -61,48 +60,6 @@ python train_imagenet.py \\
        --tmp_data_dir /path/to/your/data \\
        --save log_path \\
        --auxiliary \\
+       --binary \\
        --note note_of_this_run
 ```
-## Pretrained models
-Coming soon!.
-
-## Notes
-- For the codes in the main branch, `python2 with pytorch(3.0.1)` is recommended （running on `Nvidia 1080ti`）. We also provided codes in the `V100_python1.0` if you want to implement PC-DARTS on `Tesla V100` with `python3+` and `pytorch1.0+`.
-
-- You can even run the codes on a GPU with memory only **4G**. PC-DARTS only costs less than 4G memory, if we use the same hyper-parameter settings as DARTS(batch-size=64).
-
-- You can search on ImageNet by `model_search_imagenet.py`! The training file for search on ImageNet will be uploaded after it is cleaned or you can generate it according to the train_search file on CIFAR10 and the evluate file on ImageNet. Hyperparameters are reported in our paper! The search cost 11.5 hours on 8 V100 GPUs(16G each). If you have V100(32G) you can further increase the batch-size.  
-
-- We random sample 10% and 2.5% from each class of training dataset of ImageNet. There are still 1000 classes! Replace `input_search, target_search = next(iter(valid_queue))` with following codes would be much faster:
-
-```
-    try:
-      input_search, target_search = next(valid_queue_iter)
-    except:
-      valid_queue_iter = iter(valid_queue)
-      input_search, target_search = next(valid_queue_iter)
-```
-
-- The main codes of PC-DARTS are in the file `model_search.py`. As descriped in the paper, we use an efficient way to implement the channel sampling. First, a fixed sub-set of the input is selected to be fed into the candidate operations, then the concated output is swaped. Two efficient swap operations are provided: channel-shuffle and channel-shift. For the edge normalization, we define edge parameters(beta in our codes) along with the alpha parameters in the original darts codes. 
-
-- The implementation of random sampling is also provided `model_search_random.py`. It also works while channel-shuffle may have better performance.
-
-- As PC-DARTS is an ultra memory-efficient NAS methods. It has potentials to be implemented on other tasks such as detection and segmentation.
-
-## Related work
-
-[Progressive Differentiable Architecture Search](https://github.com/chenxin061/pdarts)
-
-[Differentiable Architecture Search](https://github.com/quark0/darts)
-## Reference
-
-If you use our code in your research, please cite our paper accordingly.
-```Latex
-@inproceedings{
-xu2020pcdarts,
-title={{\{}PC{\}}-{\{}DARTS{\}}: Partial Channel Connections for Memory-Efficient Architecture Search},
-author={Yuhui Xu and Lingxi Xie and Xiaopeng Zhang and Xin Chen and Guo-Jun Qi and Qi Tian and Hongkai Xiong},
-booktitle={International Conference on Learning Representations},
-year={2020},
-url={https://openreview.net/forum?id=BJlS634tPr}
-}

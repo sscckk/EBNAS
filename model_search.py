@@ -261,3 +261,4 @@ class Network(nn.Module):
             )
         return genotype
 
+    

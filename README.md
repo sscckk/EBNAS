@@ -31,6 +31,7 @@ EBNAS    | 1.72 | **32.2** | **12.6** | 0.04
 
 ## Environment
 Python3 with Pytorch(1.10.1)
+
 GPU: NVIDIA RTX 3090
 
 ## Usage
@@ -43,6 +44,7 @@ python train_search.py \\
 #### Evaluation
 
 The evaluation process contains two stages of full-precision activation/binary weight and binary activation/binary weight.
+
 Use --binary to select which stage to run.
 
 ##### Here is the evaluation on CIFAR10/100:

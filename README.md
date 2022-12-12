@@ -1,30 +1,34 @@
 ## Introduction
-**EBNAS** is a differentiable architecture search method for binary networks. Corresponding improvements are proposed to deal with the information loss due to binarization, the discrete error between search and evaluation, and the unbalanced operation advantage in the search space. With a similar number of model parameters, **EBNAS** outperforms other binary NAS methods in terms of accuracy and efficiency. Compared with manually designed binary networks, it remains competitive.
+**EBNAS** is a differentiable architecture search method for binary networks. Corresponding improvements are proposed to deal with the information loss due to binarization, the discrete error between search and evaluation, and the unbalanced operation advantage in the search space. With a similar number of model parameters, EBNAS outperforms other binary NAS methods in terms of accuracy and efficiency. Compared with manually designed binary networks, it remains competitive.
 
-**This code is based on the implementation of  [PC-DARTS](https://github.com/yuhuixu1993/PC-DARTS).**
+This code is based on the implementation of  [PC-DARTS](https://github.com/yuhuixu1993/PC-DARTS).
 
 ## Results
 ### Results on CIFAR10
 Method | Params(M) | Error(%)| Search-Cost
 --- | --- | --- | ---
-AmoebaNet-B|2.8|2.55|3150
-DARTSV1 | 3.3 | 3.00 | 0.4
-DARTSV2 | 3.3 | 2.76 | 1.0
-SNAS    | 2.8 | 2.85 |1.5
-PC-DARTS | 3.6 | **2.57** | **0.1**
+ResNet18 | 11.2 | 7.0 | -
+BNAS-C  | 42.4 | 5.57 | 0.4
+CP-NAS | 10.6 | 4.73 | 0.1
+BATS  | 10.0 | 4.5 | 0.25
+EBNAS    | 10.0 | **4.39** |0.04
 
-Only **0.1 GPU-days** are used for a search on CIFAR-10!
+### Results on CIFAR100
+Method | Params(M) | Error(%)| Search-Cost
+--- | --- | --- | ---
+ResNet18 | 11.2 | 24.39 | -
+BATS  | 10.0 | 24.3 | 0.25
+EBNAS    | 10.0 | **21.90** |0.04
+
 ### Results on ImageNet
-Method | FLOPs |Top-1 Error(%)|Top-5 Error(%)| Search-Cost
+Method | OPs(x1e8) |Top-1 Error(%)|Top-5 Error(%)| Search-Cost
 --- | --- | --- | --- | ---
-NASNet-A |564|26.0|8.4|1800
-AmoebaNet-B|570|24.3|7.6|3150
-PNAS     |588 |25.8 |8.1|225
-DARTSV2 | 574 | 26.7 | 8.7 | 1.0
-SNAS    | 522 | 27.3 | 9.3 |1.5
-PC-DARTS | 597 | **24.2** | **7.3** | 3.8
+ResNet18 | 11.2 | 7.0 | -
+BNAS-C  | 42.4 | 5.57 | 0.4
+CP-NAS | 10.6 | 4.73 | 0.1
+BATS  | 10.0 | 4.5 | 0.25
+EBNAS    | 10.0 | **4.39** |0.04
 
-Search a good arcitecture on ImageNet by using the search space of DARTS(**First Time!**).
 ## Usage
 #### Search on CIFAR10
 

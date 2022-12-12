@@ -60,3 +60,5 @@ def linear(epoch, e, Epochs):
     else:
         out = (epoch-e) / (Epochs-e-1)
     return out
+
+

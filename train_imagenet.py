@@ -38,7 +38,7 @@ parser.add_argument('--seed', type=int, default=0, help='random seed')
 parser.add_argument('--arch', type=str, default='EBNAS', help='which architecture to use')
 parser.add_argument('--grad_clip', type=float, default=5., help='gradient clipping')
 parser.add_argument('--label_smooth', type=float, default=0.1, help='label smoothing')
-parser.add_argument('--tmp_data_dir', type=str, default='/media/omnisky/DataSet/', help='temp data dir')
+parser.add_argument('--tmp_data_dir', type=str, default='/data1/DataSet/', help='temp data dir')
 args = parser.parse_args()
 
 if args.binary:

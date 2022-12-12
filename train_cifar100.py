@@ -17,7 +17,7 @@ from model import NetworkCIFAR as Network
 
 
 parser = argparse.ArgumentParser("cifar")
-parser.add_argument('--data', type=str, default='/media/omnisky/DataSet/CIFAR100', help='location of the data corpus')
+parser.add_argument('--data', type=str, default='/data1/DataSet/CIFAR100', help='location of the data corpus')
 parser.add_argument('--binary', action='store_true', default=False, help='use 1a1w')
 parser.add_argument('--batch_size', type=int, default=256, help='batch size')
 parser.add_argument('--learning_rate', type=float, default=0.001, help='init learning rate')
